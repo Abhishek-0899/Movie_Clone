@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="fixed top-0 left-0 w-full bg-gray-600/40 z-50 backdrop-blur-md">
+    <div className="fixed top-0 left-0 w-full bg-gray-900/50 z-50 backdrop-blur-md">
       <div className="text-2xl p-5 flex justify-between text-white">
         {/* left */}
         <nav className="flex items-center gap-11">
