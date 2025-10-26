@@ -1,17 +1,28 @@
 import { AiOutlineSearch } from "react-icons/ai";
 import React from "react";
-import { Link } from "react-router-dom";
-
+import { Link, NavLink } from "react-router-dom";
+import { Navigation } from "../components/Navigation";
 const Navbar = () => {
   return (
     <div className="fixed top-0 left-0 w-full bg-gray-900/50 z-50 backdrop-blur-md">
-      <div className="text-2xl p-5 flex justify-between text-white">
+      <div className="text-2xl p-5 flex items-center justify-between text-white">
         {/* left */}
-        <nav className="flex items-center gap-11">
-          <Link to="/">MovieDoc</Link>
-          <Link to="/:explore?type=movie">Movies</Link>
-          <Link to="/:explore?type=tv">TV Shows</Link>
+
+        <nav className="flex items-center justify-center gap-8">
+        <Link to="/">MovieDoc</Link>
+          {Navigation.map((nav) => {
+            return (
+              <NavLink
+                key={nav.href}
+                to={nav.href}
+                className="text-white hover:text-red-300 flex items-center gap-1"
+              >
+                {nav.label}
+              </NavLink>
+            );
+          })}
         </nav>
+
         {/* right */}
         <div className="flex items-center gap-2">
           <input

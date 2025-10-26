@@ -35,7 +35,7 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-gray-300 min-h-screen  ">
+    <div className="bg-black min-h-screen  ">
       <Navbar />
       <div className="pt-5">
         <Outlet />

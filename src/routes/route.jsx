@@ -10,12 +10,11 @@ const SearchPage = lazy(() => import("../pages/SearchPage.jsx"));
 const NotFound = lazy(() => import("../pages/notFound.jsx"));
 
 // Helper wrapper to sue Suspense for each route
-const withSuspense = () => (
+const withSuspense = (Component) => (
   <Suspense fallback={<p>Loading...</p>}>
     <Component />
   </Suspense>
 );
-
 
 const Router = createBrowserRouter([
   {
@@ -23,9 +22,9 @@ const Router = createBrowserRouter([
     element: <App />, // App is the layout with Navbar
     children: [
       { path: "/", element: withSuspense(Home) },
-      { path: "/explore", element: withSuspense(ExplorePage) },
+      { path: ":explore", element: withSuspense(ExplorePage) },
       { path: "/search", element: withSuspense(SearchPage) },
-      { path: "/:mediaType/:id", element: withSuspense(DetailsPage) },
+      { path: ":explore/:id", element: withSuspense(DetailsPage) },
     ],
   },
   {
