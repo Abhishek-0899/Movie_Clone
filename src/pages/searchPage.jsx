@@ -2,9 +2,14 @@ import React from 'react';
 
 const searchPage = () => {
   return (
-    <div>
-        Search btn
+    <div className='text-black'>
       
+        <h1>dddddddddddd</h1>
+        <h1>dddddddddddd</h1>
+        <h1>dddddddddddd</h1>
+        <h1>dddddddddddd</h1>
+        <h1>dddddddddddd</h1>
+        <h1>dddddddddddd</h1>
     </div>
   );
 }

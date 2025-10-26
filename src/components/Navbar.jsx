@@ -9,8 +9,8 @@ const Navbar = () => {
         {/* left */}
         <nav className="flex items-center gap-11">
           <Link to="/">MovieDoc</Link>
-          <Link to="/detail">Movies</Link>
-          <Link to="/explore">TV Shows</Link>
+          <Link to="/:explore?type=movie">Movies</Link>
+          <Link to="/:explore?type=tv">TV Shows</Link>
         </nav>
         {/* right */}
         <div className="flex items-center gap-2">
@@ -23,7 +23,7 @@ const Navbar = () => {
             <AiOutlineSearch className="text-white text-xl" />
           </button>
           <button className="bg-violet-500 hover:bg-violet-600 px-4 py-1 rounded-r-md flex items-center justify-center">
-           <p className="text-sm">Login</p>
+            <p className="text-sm">Login</p>
           </button>
         </div>
       </div>

@@ -1,11 +1,22 @@
 import React from 'react';
 
-const detailsPage = () => {
+const DetailsPage = () => {
   return (
     <div>
+      details page
+      details page
+      details page
+      details page
+      details page
+      details page
+      details page
+      details page
+      details page
+      details page
+      details page
       details page
     </div>
   );
 }
 
-export default detailsPage;
+export default DetailsPage;

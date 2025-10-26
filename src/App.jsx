@@ -22,7 +22,7 @@ function App() {
   const fetchConfiguration = async () => {
     try {
       const response = await axios.get("/configuration");
-      dispatch(setImageUrl(response.data.images.secure_base_url + "original"))
+      dispatch(setImageUrl(response.data.images.secure_base_url + "original"));
       // console.log("config", response.data.images.secure_base_url + "original");
     } catch (e) {
       console.log("error", e);

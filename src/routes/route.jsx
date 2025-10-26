@@ -1,21 +1,32 @@
-// routes/Router.jsx
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App.jsx";
-import Home from "../pages/Home.jsx";
-import ExplorePage from "../pages/ExplorePage.jsx";
-import DetailsPage from "../pages/DetailsPage.jsx";
-import SearchPage from "../pages/SearchPage.jsx";
-import NotFound from "../pages/notFound.jsx";
+import { lazy, Suspense } from "react";
+
+// :lazy import
+const Home = lazy(() => import("../pages/Home.jsx"));
+const ExplorePage = lazy(() => import("../pages/ExplorePage.jsx"));
+const DetailsPage = lazy(() => import("../pages/detailsPage.jsx"));
+const SearchPage = lazy(() => import("../pages/SearchPage.jsx"));
+const NotFound = lazy(() => import("../pages/notFound.jsx"));
+
+// Helper wrapper to sue Suspense for each route
+const withSuspense = () => (
+  <Suspense fallback={<p>Loading...</p>}>
+    <Component />
+  </Suspense>
+);
+
+
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <App />, // App is the layout with Navbar
     children: [
-      { path: "/", element: <Home /> },
-      { path: "/explore", element: <ExplorePage /> },
-      { path: "/detail", element: <DetailsPage /> },
-      { path: "/search", element: <SearchPage /> },
-      ],
+      { path: "/", element: withSuspense(Home) },
+      { path: "/explore", element: withSuspense(ExplorePage) },
+      { path: "/search", element: withSuspense(SearchPage) },
+      { path: "/:mediaType/:id", element: withSuspense(DetailsPage) },
+    ],
   },
   {
     path: "*",
