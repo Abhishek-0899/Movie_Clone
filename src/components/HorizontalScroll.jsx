@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 // import { useSelector } from "react-redux";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import Cards from "./Cards";
-
 const HorizontalScroll = ({ data = [], heading, trending }) => {
   // const trendingData = useSelector((state) => state.movieData.bannerData);
   // console.log("trending", trendingData);
@@ -19,7 +18,7 @@ const HorizontalScroll = ({ data = [], heading, trending }) => {
   };
   return (
     <div className="container mx-auto px-3 my-10">
-      <h1 className="text-2xl font-bold font-serif">{heading}</h1>
+      <h1 className="text-2xl text-white font-serif">{heading}</h1>
       <div className="relative ">
         <div
           ref={containerRef}
