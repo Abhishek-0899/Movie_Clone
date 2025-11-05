@@ -5,7 +5,7 @@ import { BiTv } from "react-icons/bi";
 export const Navigation = [
   {
     label: "Movies",
-    href: "/explore/movie", 
+    href: "/movie", 
     icon: <BiMovie />,
   },
 

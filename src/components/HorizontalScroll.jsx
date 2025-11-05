@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { lazy, Suspense, useRef } from "react";
 // import { useSelector } from "react-redux";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
-import Cards from "./Cards";
+const Cards = lazy(() => import("./Cards"));
+
 const HorizontalScroll = ({ data = [], heading, trending }) => {
   // const trendingData = useSelector((state) => state.movieData.bannerData);
   // console.log("trending", trendingData);
@@ -28,13 +29,15 @@ const HorizontalScroll = ({ data = [], heading, trending }) => {
         >
           {data.map((data, index) => {
             return (
-              <Cards
-                key={data.id + "heading" + index}
-                data={data}
-                trending={trending}
-                index={index + 1}
-                className="snap-start"
-              />
+              <Suspense fallback={<p>Loading...</p>}>
+                <Cards
+                  key={data.id + "heading" + index}
+                  data={data}
+                  trending={trending}
+                  index={index + 1}
+                  className="snap-start"
+                />
+              </Suspense>
             );
           })}
         </div>

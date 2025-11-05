@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const FetchData = (endpoint) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
@@ -10,7 +10,7 @@ const FetchData = (endpoint) => {
       setLoading(true);
       const response = await axios.get(endpoint);
       setLoading(false);
-      setData(response.data.results);
+      setData(response.data.results || response.data);
     } catch (e) {
       console.log("error", e);
     }
@@ -18,7 +18,7 @@ const FetchData = (endpoint) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [endpoint]);
   return { data, loading };
 };
 

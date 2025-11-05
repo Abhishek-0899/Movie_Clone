@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
+import { lazy } from "react";
 import { useParams } from "react-router-dom";
-import Cards from "../components/Cards";
+const Cards = lazy(() => import("../components/Cards"));
 const ExplorePage = () => {
   const params = useParams();
   // console.log("params", params.explore);
@@ -41,8 +42,14 @@ const ExplorePage = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, [params.explore, pageNo, isFetching]);
+    if (params.explore) fetchData();
+  }, [pageNo, params.explore]);
+  useEffect(() => {
+    setData([]);
+    setPageNo(1);
+    window.scrollTo(0, 0);
+    // fetchData();
+  }, [params.explore]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -58,12 +65,13 @@ const ExplorePage = () => {
           <div className="grid grid-cols-[repeat(auto-fit,230px)] gap-7">
             {data.map((exploreData, index) => {
               return (
-                <Cards
-                  data={exploreData}
-                  // key={exploreData.id + `exploreSection`}
-                  key={`${exploreData.id}-${index}-exploreSection`}
-                  media_type={params.explore}
-                />
+                <Suspense fallback={<p>Loading...</p>}>
+                  <Cards
+                    data={exploreData}
+                    key={`${exploreData.id}+exploreSection`}
+                    media_type={params.explore}
+                  />
+                </Suspense>
               );
             })}
           </div>
