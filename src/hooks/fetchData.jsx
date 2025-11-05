@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const FetchData = (endpoint) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
@@ -15,10 +15,10 @@ const FetchData = (endpoint) => {
       console.log("error", e);
     }
   };
-
-  useEffect(() => {
-    fetchData();
-  }, [endpoint]);
+useEffect(() => {
+  if (!endpoint) return; // ✅ prevents accidental early hook exit
+  fetchData();
+}, [endpoint]);
   return { data, loading };
 };
 

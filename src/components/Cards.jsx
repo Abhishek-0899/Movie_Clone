@@ -6,7 +6,11 @@ const Cards = ({ data, trending, index, media_type }) => {
   const mediaType = data.media_type ?? media_type;
   return (
     <Link
-      to={"/" + mediaType + "/" + data.id}
+      to={
+        data?.mediaType
+          ? `/${data?.mediaType}/${data?.id}`
+          : `/movie/${data?.id}`
+      }
       className="w-full min-w-[230px] max-w-[230px] h-90 overflow-hidden block rounded relative"
     >
       {data?.poster_path ? (

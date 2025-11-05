@@ -1,51 +1,43 @@
 import { AiOutlineSearch } from "react-icons/ai";
-import React, { useEffect, useState } from "react";
-import {
-  Link,
-  NavLink,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Navigation } from "../components/Navigation";
+
 const Navbar = () => {
   const location = useLocation();
   const removeSpace = location?.search?.slice(3)?.split("%20")?.join(" ");
-  const [searchInput, setSearchInput] = useState(removeSpace);
+  const [searchInput, setSearchInput] = useState(removeSpace || "");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    navigate(`/search?q:${searchInput}`);
-  }, [searchInput]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (searchInput.trim() !== "") {
+      navigate(`/search?q=${searchInput}`);
+    }
   };
+
   return (
     <div className="fixed top-0 left-0 w-full z-50">
       <div className="text-2xl p-5 flex items-center justify-between text-white">
         {/* left */}
-
         <nav className="flex items-center justify-center gap-8">
           <Link to="/">MovieDoc</Link>
-          {Navigation.map((nav) => {
-            return (
-              <NavLink
-                key={nav.href}
-                to={nav.href}
-                className="text-white hover:text-red-300 flex items-center gap-1"
-              >
-                {nav.label}
-              </NavLink>
-            );
-          })}
+          {Navigation.map((nav) => (
+            <NavLink
+              key={nav.href}
+              to={nav.href}
+              className="text-white hover:text-red-300 flex items-center gap-1"
+            >
+              {nav.label}
+            </NavLink>
+          ))}
         </nav>
 
         {/* right */}
         <div className="flex items-center justify-center gap-2">
-          <form className="relative w-64" action="" onSubmit={handleSubmit}>
+          <form className="relative w-64" onSubmit={handleSubmit}>
             <input
               type="text"
-              // onChange={(e)=>setSearchInput(e.target.value)}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search movies..."
               value={searchInput}
