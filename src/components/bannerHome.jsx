@@ -2,34 +2,44 @@ import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const BannerHome = () => {
   const bannerDat = useSelector((state) => state.movieData.bannerData);
-  // console.log("data", bannerDat);
+  const navigate = useNavigate();
   const imageUrl = useSelector((state) => state.movieData.imageUrl);
   const [currentImage, setCurrentImage] = useState(0);
 
   const handleNext = () => {
-    setCurrentImage((prev) => (prev == bannerDat.length - 1 ? 0 : prev + 1));
+    setCurrentImage((prev) => (prev === bannerDat?.length - 1 ? 0 : prev + 1));
   };
   const handlePrev = () => {
-    setCurrentImage((prev) => (prev === 0 ? bannerDat.length - 1 : prev - 1));
+    setCurrentImage((prev) => (prev === 0 ? bannerDat?.length - 1 : prev - 1));
+  };
+
+  const handleDetailsPage = (item) => {
+    navigate(`/${item.media_type || "movie"}/${item.id}`);
   };
 
   useEffect(() => {
-    if (!bannerDat || bannerDat.length === 0) return;
+    if (!bannerDat?.length) return;
     const timer = setInterval(() => {
-      setCurrentImage((prev) => (prev === bannerDat.length - 1 ? 0 : prev + 1));
-    }, 2000);
+      setCurrentImage((prev) =>
+        prev === bannerDat?.length - 1 ? 0 : prev + 1
+      );
+    }, 4000);
 
-    return () => clearTimeout(timer);
-  }, [currentImage, bannerDat.length]);
+    return () => clearInterval(timer);
+  }, [currentImage, bannerDat?.length]);
+
+  if (!bannerDat || bannerDat.length === 0) return null;
   return (
     <div className="w-full h-full">
       <div className="flex min-h-full max-h-[90vh] overflow-hidden">
-        {bannerDat.map((data,index) => {
+        {bannerDat.map((data, index) => {
           return (
-            <div key={data.id + "bannerHome" + index}
+            <div
+              key={data.id + "bannerHome" + index}
               className="min-w-full overflow-hidden relative"
               style={{ transform: `translateX(-${currentImage * 100}%)` }}
             >
@@ -37,7 +47,7 @@ const BannerHome = () => {
                 <img
                   className="h-full w-full object-cover"
                   src={imageUrl + data.backdrop_path}
-                  alt=""
+                  alt={data?.title || "Movie Poster"}
                   loading="lazy"
                 />
               </div>
@@ -81,12 +91,12 @@ const BannerHome = () => {
                       {data.vote_count} 👁️
                     </p>
                   </div>
-                  <button className="rounded-lg font-bold cursor-pointer bg-orange-400 px-2 py-1 mt-2 hover:bg-orange-600 z-20  relative transition-colors duration-300">
-                    Play
+                  <button
+                    onClick={() => handleDetailsPage(data)}
+                    className="rounded-lg font-bold cursor-pointer bg-orange-400 px-2 py-1 mt-2 hover:bg-orange-600 z-20  relative transition-colors duration-300"
+                  >
+                    Watch
                   </button>
-                  {/* <button className="rounded-lg font-bold cursor-pointer bg-orange-400 px-2 py-1 mt-2 hover:bg-slate-600 z-10 relative transition-colors duration-300">
-                    Play
-                  </button> */}
                 </div>
               </div>
             </div>
@@ -98,5 +108,3 @@ const BannerHome = () => {
 };
 
 export default BannerHome;
-
-// export const { setBannerData, setImageUrl } = MovieSlice.actions;

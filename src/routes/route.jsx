@@ -24,7 +24,7 @@ const Router = createBrowserRouter([
       { path: "/", element: withSuspense(Home) },
       { path: ":explore", element: withSuspense(ExplorePage) },
       { path: "/search", element: withSuspense(SearchPage) },
-      { path: ":media_type/:id", element: withSuspense(DetailsPage) },
+      { path: ":explore/:id", element: withSuspense(DetailsPage) },
     ],
   },
   {
